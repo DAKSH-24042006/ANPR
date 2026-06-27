@@ -4,6 +4,19 @@ Defines model paths, thresholds, crop paddings, enhancements, and supported form
 This file is completely independent from the training configuration.
 """
 
+import os
+# Force underlying C++ libraries (OpenMP, MKL, OpenBLAS) to use a single thread per request
+# to prevent CPU context-switch thrashing and thread lock contention under FastAPI/Uvicorn/Streamlit.
+os.environ["OMP_NUM_THREADS"] = "1"
+os.environ["MKL_NUM_THREADS"] = "1"
+os.environ["OPENBLAS_NUM_THREADS"] = "1"
+os.environ["VECLIB_MAXIMUM_THREADS"] = "1"
+os.environ["NUMEXPR_NUM_THREADS"] = "1"
+
+# Bypasses PaddlePaddle's slow online model source and update checking (eliminates 15-30s startup/runtime hangs)
+os.environ["PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK"] = "True"
+os.environ["PADDLE_DISABLE_CHECK_UPDATE"] = "True"
+
 from pathlib import Path
 
 # Base directories
@@ -15,7 +28,7 @@ PLATE_MODEL_PATH: str = str(BASE_DIR / "models" / "plate_detector" / "best.onnx"
 
 # OCR settings
 OCR_LANG: str = "en"
-OCR_VERSION: str = "PP-OCRv5"  # Configured OCR version
+OCR_VERSION: str = "PP-OCRv4"  # Configured OCR version
 USE_ANGLE_CLS: bool = True
 
 # Inference confidence thresholds
