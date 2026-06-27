@@ -74,13 +74,13 @@ def health_check(db: Session = Depends(get_db)):
 
 
 @router.post("/detect", response_model=schemas.DetectionResponse)
-async def upload_and_detect(
+def upload_and_detect(
     file: UploadFile = File(...),
     db: Session = Depends(get_db)
 ):
     """Processes uploaded image, draws overlays, and logs result records."""
     # 1. Size constraint check (10MB limit)
-    contents = await file.read()
+    contents = file.file.read()
     file_size = len(contents)
     if file_size > config.MAX_UPLOAD_SIZE:
         raise HTTPException(

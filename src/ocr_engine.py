@@ -5,6 +5,7 @@ returning textual strings, confidence scores, and character-level coordinates.
 """
 
 import torch  # Critical: Import torch before paddle/paddleocr to prevent MKL DLL conflicts on Windows
+import cv2
 import numpy as np
 from paddleocr import PaddleOCR
 from src import config
@@ -44,9 +45,28 @@ class OCREngine:
         if plate_image is None or plate_image.size == 0:
             return {"text": "", "confidence": 0.0, "char_details": None}
 
-        # Run OCR inference
+        h, w = plate_image.shape[:2]
+        
+        # 1. Resize plate crop if width > 320 (keeping aspect ratio)
+        if w > 320:
+            ratio = 320.0 / w
+            new_h = int(round(h * ratio))
+            plate_img_processed = cv2.resize(plate_image, (320, new_h), interpolation=cv2.INTER_LINEAR)
+        else:
+            new_h = h
+            plate_img_processed = plate_image
+
+        # 2. Convert to RGB as PaddleOCR models expect RGB representation
+        plate_rgb = cv2.cvtColor(plate_img_processed, cv2.COLOR_BGR2RGB)
+
+        # Run OCR inference with document preprocessing modules bypassed for speed
         try:
-            results = self.ocr.ocr(plate_image)
+            results = self.ocr.ocr(
+                plate_rgb,
+                use_doc_orientation_classify=False,
+                use_doc_unwarping=False,
+                use_textline_orientation=False
+            )
         except Exception as e:
             # Return empty if OCR crashes
             return {"text": "", "confidence": 0.0, "char_details": None, "error": str(e)}
@@ -103,6 +123,18 @@ class OCREngine:
                         char_scores.extend([float(conf)] * len(text))
 
         mean_confidence = float(np.mean(confidences)) if confidences else 0.0
+
+        # Scale character coordinate boxes back to original crop resolution if resized
+        if w > 320 and char_boxes:
+            scale_x = w / 320.0
+            scale_y = h / float(new_h)
+            scaled_char_boxes = []
+            for box in char_boxes:
+                scaled_box = []
+                for pt in box:
+                    scaled_box.append([pt[0] * scale_x, pt[1] * scale_y])
+                scaled_char_boxes.append(scaled_box)
+            char_boxes = scaled_char_boxes
 
         char_details = {
             "boxes": char_boxes,

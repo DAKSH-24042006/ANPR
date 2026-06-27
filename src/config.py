@@ -10,8 +10,8 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Models configurations
-VEHICLE_MODEL_PATH: str = str(BASE_DIR / "yolo11s.pt")
-PLATE_MODEL_PATH: str = str(BASE_DIR / "models" / "plate_detector" / "best.pt")
+VEHICLE_MODEL_PATH: str = str(BASE_DIR / "yolo11s.onnx")
+PLATE_MODEL_PATH: str = str(BASE_DIR / "models" / "plate_detector" / "best.onnx")
 
 # OCR settings
 OCR_LANG: str = "en"

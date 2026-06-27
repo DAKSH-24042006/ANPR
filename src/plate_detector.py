@@ -17,7 +17,7 @@ class PlateDetector:
             model_path: Path to the custom best.pt weights.
         """
         try:
-            self.model = YOLO(model_path)
+            self.model = YOLO(model_path, task="detect")
         except Exception as e:
             raise RuntimeError(f"Failed to load plate detector model from {model_path}. Error: {str(e)}")
 

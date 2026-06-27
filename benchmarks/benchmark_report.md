@@ -1,6 +1,6 @@
 # ANPR System Benchmark Report
 
-> Generated: 2026-06-27 12:10:44  |  Images benchmarked: 10
+> Generated: 2026-06-27 15:56:24  |  Images benchmarked: 10
 
 ---
 
@@ -8,10 +8,9 @@
 
 | Status | Count |
 | :--- | ---: |
-| NO_PLATE | 1 |
 | NO_VEHICLE | 1 |
-| OCR_FAILED | 5 |
-| SUCCESS | 3 |
+| OCR_FAILED | 2 |
+| SUCCESS | 7 |
 
 ---
 
@@ -19,25 +18,25 @@
 
 | Stage | Avg Latency (ms) |
 | :--- | ---: |
-| Image Loading       | 14.92 |
-| Preprocessing       | 2.71 |
-| Vehicle Detection   | 481.71 |
-| Vehicle Cropping    | 0.33 |
-| Plate Detection     | 337.88 |
-| Plate Cropping      | 0.31 |
-| Image Enhancement   | 15.64 |
-| OCR                 | 7901.69 |
-| Post-Processing     | 0.65 |
-| **Total Pipeline**  | **7138.34** |
+| Image Loading       | 13.74 |
+| Preprocessing       | 2.06 |
+| Vehicle Detection   | 348.17 |
+| Vehicle Cropping    | 0.28 |
+| Plate Detection     | 307.5 |
+| Plate Cropping      | 0.32 |
+| Image Enhancement   | 23.28 |
+| OCR                 | 2957.86 |
+| Post-Processing     | 0.45 |
+| **Total Pipeline**  | **3324.69** |
 
-**Throughput:** 0.14 FPS
+**Throughput:** 0.3 FPS
 
 ---
 
 ## 3. Vehicle Detector (YOLO11s COCO)
 
 - **Model:** YOLO11s (pretrained COCO)
-- **Avg Inference Time:** 481.71 ms
+- **Avg Inference Time:** 348.17 ms
 - **COCO mAP@50:** 0.479
 - **COCO mAP@50-95:** 0.325
 - **Note:** Uses pretrained weights. Latency benchmarked; mAP sourced from COCO paper.
@@ -49,7 +48,7 @@
 - **Model:** YOLO11s (fine-tuned on ANPR dataset)
 - **Training Epochs:** 79
 - **Training Time:** 5745.9 s
-- **Avg Inference Time:** 337.88 ms
+- **Avg Inference Time:** 307.5 ms
 
 ### Best Epoch Validation Metrics
 
@@ -66,10 +65,10 @@
 ## 5. OCR Engine (PP-OCRv5)
 
 - **Model:** PP-OCRv5 (PaddlePaddle)
-- **Avg OCR Time:** 7901.69 ms
-- **Plates Recognised (SUCCESS):** 3
+- **Avg OCR Time:** 2957.86 ms
+- **Plates Recognised (SUCCESS):** 7
 - **Images with Plate Annotations:** 9
-- **Plate Recognition Accuracy (PRA):** 0.3333
+- **Plate Recognition Accuracy (PRA):** 0.7778
 - **Note:** Character Accuracy Rate (CAR) requires human-annotated plate text. Text ground-truth is not present in the YOLO-format dataset labels. PRA is computed as: successful OCR extractions / annotated plate images.
 
 ---
@@ -78,8 +77,8 @@
 
 | Resource | Value |
 | :--- | ---: |
-| Avg CPU Utilisation | 7.8 % |
-| Avg RAM Used        | 10897.6 MB |
+| Avg CPU Utilisation | 6.7 % |
+| Avg RAM Used        | 13269.3 MB |
 | GPU Available       | True |
 | GPU Name            | N/A |
 | GPU VRAM Used       | 0 MB |

@@ -4,6 +4,15 @@ Registers the routes router, configures static mounts, and initializes database 
 schemas upon startup via async lifespans.
 """
 
+import os
+# Force underlying C++ libraries (OpenMP, MKL, OpenBLAS) to use a single thread per request
+# to prevent CPU context-switch thrashing and thread lock contention under FastAPI/Uvicorn.
+os.environ["OMP_NUM_THREADS"] = "1"
+os.environ["MKL_NUM_THREADS"] = "1"
+os.environ["OPENBLAS_NUM_THREADS"] = "1"
+os.environ["VECLIB_MAXIMUM_THREADS"] = "1"
+os.environ["NUMEXPR_NUM_THREADS"] = "1"
+
 import logging
 from contextlib import asynccontextmanager
 from fastapi import FastAPI

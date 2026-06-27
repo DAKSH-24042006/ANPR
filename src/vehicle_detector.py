@@ -25,7 +25,7 @@ class VehicleDetector:
             model_path: Path to the yolo11s.pt weights.
         """
         try:
-            self.model = YOLO(model_path)
+            self.model = YOLO(model_path, task="detect")
         except Exception as e:
             raise RuntimeError(f"Failed to load vehicle detector model from {model_path}. Error: {str(e)}")
 

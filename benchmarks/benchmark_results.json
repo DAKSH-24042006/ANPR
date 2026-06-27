@@ -1,26 +1,25 @@
 {
-    "benchmark_timestamp": "2026-06-27 12:10:44",
+    "benchmark_timestamp": "2026-06-27 15:56:24",
     "images_benchmarked": 10,
     "status_distribution": {
-        "SUCCESS": 3,
-        "OCR_FAILED": 5,
+        "SUCCESS": 7,
         "NO_VEHICLE": 1,
-        "NO_PLATE": 1
+        "OCR_FAILED": 2
     },
     "latency_ms": {
-        "image_loading": 14.92,
-        "preprocessing": 2.71,
-        "vehicle_detection": 481.71,
-        "vehicle_cropping": 0.33,
-        "plate_detection": 337.88,
-        "plate_cropping": 0.31,
-        "image_enhancement": 15.64,
-        "ocr": 7901.69,
-        "post_processing": 0.65,
-        "total_pipeline": 7138.34
+        "image_loading": 13.74,
+        "preprocessing": 2.06,
+        "vehicle_detection": 348.17,
+        "vehicle_cropping": 0.28,
+        "plate_detection": 307.5,
+        "plate_cropping": 0.32,
+        "image_enhancement": 23.28,
+        "ocr": 2957.86,
+        "post_processing": 0.45,
+        "total_pipeline": 3324.69
     },
     "throughput": {
-        "fps": 0.14
+        "fps": 0.3
     },
     "vehicle_detector": {
         "model": "YOLO11s (pretrained COCO)",
@@ -31,7 +30,7 @@
             "truck"
         ],
         "note": "Uses pretrained weights. Latency benchmarked; mAP sourced from COCO paper.",
-        "avg_inference_ms": 481.71,
+        "avg_inference_ms": 348.17,
         "coco_mAP50": 0.479,
         "coco_mAP50_95": 0.325
     },
@@ -39,7 +38,7 @@
         "model": "YOLO11s (fine-tuned on ANPR dataset)",
         "training_epochs": 79,
         "training_time_s": 5745.9,
-        "avg_inference_ms": 337.88,
+        "avg_inference_ms": 307.5,
         "best_epoch_metrics": {
             "epoch": 79,
             "precision": 0.9181,
@@ -51,15 +50,15 @@
     },
     "ocr_engine": {
         "model": "PP-OCRv5 (PaddlePaddle)",
-        "avg_ocr_ms": 7901.69,
-        "plates_recognized": 3,
+        "avg_ocr_ms": 2957.86,
+        "plates_recognized": 7,
         "images_with_plate_annotations": 9,
-        "plate_recognition_accuracy_PRA": 0.3333,
+        "plate_recognition_accuracy_PRA": 0.7778,
         "note_car": "Character Accuracy Rate (CAR) requires human-annotated plate text. Text ground-truth is not present in the YOLO-format dataset labels. PRA is computed as: successful OCR extractions / annotated plate images."
     },
     "system_resources": {
-        "avg_cpu_percent": 7.8,
-        "avg_ram_used_mb": 10897.6,
+        "avg_cpu_percent": 6.7,
+        "avg_ram_used_mb": 13269.3,
         "gpu_available": true,
         "gpu_name": "N/A",
         "gpu_vram_used_mb": 0,
