@@ -1,0 +1,68 @@
+{
+    "benchmark_timestamp": "2026-06-27 12:10:44",
+    "images_benchmarked": 10,
+    "status_distribution": {
+        "SUCCESS": 3,
+        "OCR_FAILED": 5,
+        "NO_VEHICLE": 1,
+        "NO_PLATE": 1
+    },
+    "latency_ms": {
+        "image_loading": 14.92,
+        "preprocessing": 2.71,
+        "vehicle_detection": 481.71,
+        "vehicle_cropping": 0.33,
+        "plate_detection": 337.88,
+        "plate_cropping": 0.31,
+        "image_enhancement": 15.64,
+        "ocr": 7901.69,
+        "post_processing": 0.65,
+        "total_pipeline": 7138.34
+    },
+    "throughput": {
+        "fps": 0.14
+    },
+    "vehicle_detector": {
+        "model": "YOLO11s (pretrained COCO)",
+        "classes": [
+            "car",
+            "motorcycle",
+            "bus",
+            "truck"
+        ],
+        "note": "Uses pretrained weights. Latency benchmarked; mAP sourced from COCO paper.",
+        "avg_inference_ms": 481.71,
+        "coco_mAP50": 0.479,
+        "coco_mAP50_95": 0.325
+    },
+    "plate_detector": {
+        "model": "YOLO11s (fine-tuned on ANPR dataset)",
+        "training_epochs": 79,
+        "training_time_s": 5745.9,
+        "avg_inference_ms": 337.88,
+        "best_epoch_metrics": {
+            "epoch": 79,
+            "precision": 0.9181,
+            "recall": 0.8571,
+            "mAP50": 0.9283,
+            "mAP50_95": 0.7528,
+            "training_time_s": 5745.9
+        }
+    },
+    "ocr_engine": {
+        "model": "PP-OCRv5 (PaddlePaddle)",
+        "avg_ocr_ms": 7901.69,
+        "plates_recognized": 3,
+        "images_with_plate_annotations": 9,
+        "plate_recognition_accuracy_PRA": 0.3333,
+        "note_car": "Character Accuracy Rate (CAR) requires human-annotated plate text. Text ground-truth is not present in the YOLO-format dataset labels. PRA is computed as: successful OCR extractions / annotated plate images."
+    },
+    "system_resources": {
+        "avg_cpu_percent": 7.8,
+        "avg_ram_used_mb": 10897.6,
+        "gpu_available": true,
+        "gpu_name": "N/A",
+        "gpu_vram_used_mb": 0,
+        "gpu_vram_total_mb": 0
+    }
+}

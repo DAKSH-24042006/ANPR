@@ -1,0 +1,16 @@
+ultralytics>=8.3.0
+torch>=2.0.0
+torchvision>=0.15.0
+opencv-python>=4.8.0
+pandas>=2.0.0
+matplotlib>=3.7.0
+pyyaml>=6.0
+pillow>=10.0.0
+onnx>=1.14.0
+sqlalchemy>=2.0.0
+pymysql>=1.1.0
+python-multipart>=0.0.9
+fastapi>=0.110.0
+uvicorn>=0.28.0
+streamlit>=1.30.0
+

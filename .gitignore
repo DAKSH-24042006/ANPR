@@ -1,0 +1,30 @@
+# Python Caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+
+# Model Weights
+*.pt
+*.onnx
+*.engine
+models/plate_detector/*.pt
+models/plate_detector/*.onnx
+models/plate_detector/*.engine
+
+# Datasets
+datasets/
+
+# Output directories & Logs
+outputs/
+ANPR_Plate_Detector/
+*.log
+
+# IDE files
+.vscode/
+.idea/
